@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "strict": true,
+    "target": "ES2017",
+    "module": "commonjs",
+    "jsx": "react",
+    "noUnusedLocals": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "noEmit": false,
+    "esModuleInterop": true,
+    "baseUrl": "src",
+    "lib": ["es2017", "es6", "dom", "esnext.asynciterable"]
+  },
+  "include": ["./src/**/*"]
+}
