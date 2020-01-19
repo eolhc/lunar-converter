@@ -27,10 +27,13 @@
     "webpack-dev-server": "^3.10.1"
   },
   "dependencies": {
+    "@types/react-transition-group": "^4.2.3",
     "@types/styled-components": "^4.4.2",
     "date-chinese": "^1.0.7",
     "react": "^16.12.0",
+    "react-countup": "^4.3.2",
     "react-dom": "^16.12.0",
+    "react-transition-group": "^4.3.0",
     "styled-components": "^5.0.0"
   }
 }
