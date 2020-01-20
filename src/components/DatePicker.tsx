@@ -1,18 +1,55 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { CSSTransition } from 'react-transition-group';
 import useValidation from '../hooks/useValidation';
 import { Fade, Slide } from './animations';
+import { invisibleButton } from './conversionOptions';
 
 export type Birthdate = {
-  day: string;
-  month: string;
-  year: string;
+  day: number;
+  month: number;
+  year: number;
 };
 
 type Props = {
   onSubmit: (days: Birthdate) => void;
+  setShouldAnimate: (shouldAnimate: boolean) => void;
+  shouldAnimate: boolean;
 };
+
+const DateWrapper = styled.span`
+  font-family: 'Racing Sans One';
+`;
+
+const Calculator = styled.div`
+  text-align: center;
+`;
+
+const instructionText = css`
+  text-transform: uppercase;
+  font-size: 0.5em;
+`;
+
+const Instruction = styled.div`
+  width: 160px;
+  margin: 0 auto;
+  ${instructionText}
+`;
+
+const Button = styled.button`
+  ${instructionText}
+  ${invisibleButton}
+  border-bottom: 1px solid black;
+  padding-bottom: 2px;
+`;
+
+const ValidationText = styled.div`
+  position: absolute;
+  top: -28px;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #fabc3c;
+`;
 
 const DatePickerInput = styled.input<{ shortInput: boolean }>`
   background-color: transparent;
@@ -28,11 +65,17 @@ const DatePickerInput = styled.input<{ shortInput: boolean }>`
   &:focus {
     outline: none;
   }
+
+  &::placeholder {
+    color: #fabc3c;
+  }
 `;
 
-const DatePicker: React.FC<Props> = ({ onSubmit }) => {
-  const [didSubmit, setDidSubmit] = useState(false);
-
+const DatePicker: React.FC<Props> = ({
+  onSubmit,
+  setShouldAnimate,
+  shouldAnimate
+}) => {
   const [day, setDay] = useState('');
   const [month, setMonth] = useState('');
   const [year, setYear] = useState('');
@@ -40,6 +83,9 @@ const DatePicker: React.FC<Props> = ({ onSubmit }) => {
   const dayValidationText = useValidation('Day', day);
   const monthValidationText = useValidation('Month', month);
   const yearValidationText = useValidation('Year', year);
+
+  const invalidContent =
+    dayValidationText || monthValidationText || yearValidationText;
 
   const allValid =
     !dayValidationText &&
@@ -66,84 +112,110 @@ const DatePicker: React.FC<Props> = ({ onSubmit }) => {
   };
 
   return (
-    <div>
-      {didSubmit ? (
-        <CSSTransition in={didSubmit} classNames="slide-left" timeout={2000}>
-          <Slide>{day}</Slide>
-        </CSSTransition>
-      ) : (
-        <DatePickerInput
-          shortInput
-          onChange={e => handleChange('day', e.currentTarget.value)}
-          value={day}
-          placeholder="DD"
-        />
+    <Calculator>
+      <div>
+        {invalidContent && (
+          <ValidationText>
+            Invalid {dayValidationText && `${dayValidationText}`}
+            {monthValidationText && ` / ${monthValidationText}`}
+            {yearValidationText && ` / ${yearValidationText} `}
+          </ValidationText>
+        )}
+
+        {shouldAnimate ? (
+          <CSSTransition
+            in={shouldAnimate}
+            classNames="slide-left"
+            timeout={2000}
+          >
+            <Slide>
+              <DateWrapper>{day}</DateWrapper>
+            </Slide>
+          </CSSTransition>
+        ) : (
+          <DatePickerInput
+            shortInput
+            onChange={e => handleChange('day', e.currentTarget.value)}
+            value={day}
+            placeholder="DD"
+          />
+        )}
+        {shouldAnimate ? (
+          ' '
+        ) : (
+          <CSSTransition
+            mountOnEnter
+            in={!shouldAnimate}
+            timeout={200}
+            classNames="fade"
+            unmountOnExit
+          >
+            <Fade>/</Fade>
+          </CSSTransition>
+        )}
+        {shouldAnimate ? (
+          <DateWrapper>{month}</DateWrapper>
+        ) : (
+          <DatePickerInput
+            shortInput
+            onChange={e => handleChange('month', e.currentTarget.value)}
+            value={month}
+            placeholder="MM"
+          />
+        )}
+        {shouldAnimate ? (
+          ' '
+        ) : (
+          <CSSTransition
+            mountOnEnter
+            in={!shouldAnimate}
+            timeout={200}
+            classNames="fade"
+            unmountOnExit
+          >
+            <Fade>/</Fade>
+          </CSSTransition>
+        )}
+        {shouldAnimate ? (
+          <CSSTransition
+            in={shouldAnimate}
+            classNames="slide-right"
+            timeout={2000}
+            onEntered={() => {
+              onSubmit({
+                day: parseInt(day, 10),
+                month: parseInt(month, 10),
+                year: parseInt(year, 10)
+              });
+              setShouldAnimate(false);
+            }}
+          >
+            <Slide>
+              <DateWrapper>{year}</DateWrapper>
+            </Slide>
+          </CSSTransition>
+        ) : (
+          <DatePickerInput
+            onChange={e => handleChange('year', e.currentTarget.value)}
+            value={year}
+            placeholder="YYYY"
+            shortInput={false}
+          />
+        )}
+      </div>
+      {!shouldAnimate && !allValid && (
+        <Instruction>ENTER YOUR BIRTHDAY</Instruction>
       )}
-      {didSubmit ? (
-        ' '
-      ) : (
-        <CSSTransition
-          mountOnEnter
-          in={!didSubmit}
-          timeout={200}
-          classNames="fade"
-          unmountOnExit
-        >
-          <Fade>/</Fade>
-        </CSSTransition>
-      )}
-      {didSubmit ? (
-        month
-      ) : (
-        <DatePickerInput
-          shortInput
-          onChange={e => handleChange('month', e.currentTarget.value)}
-          value={month}
-          placeholder="MM"
-        />
-      )}
-      {didSubmit ? (
-        ' '
-      ) : (
-        <CSSTransition
-          mountOnEnter
-          in={!didSubmit}
-          timeout={200}
-          classNames="fade"
-          unmountOnExit
-        >
-          <Fade>/</Fade>
-        </CSSTransition>
-      )}
-      {didSubmit ? (
-        <CSSTransition
-          in={didSubmit}
-          classNames="slide-right"
-          timeout={2000}
-          onEntered={() => {
-            console.log('set western birthday');
-            onSubmit({ day, month, year });
+      {!shouldAnimate && allValid && (
+        <Button
+          onClick={() => {
+            setShouldAnimate(true);
           }}
         >
-          <Slide>{year}</Slide>
-        </CSSTransition>
-      ) : (
-        <DatePickerInput
-          onChange={e => handleChange('year', e.currentTarget.value)}
-          value={year}
-          placeholder="YYYY"
-          shortInput={false}
-        />
+          CLICK FOR your lunar birthday
+        </Button>
       )}
-      {dayValidationText && <div>{dayValidationText}</div>}
-      {monthValidationText && <div>{monthValidationText}</div>}
-      {yearValidationText && <div>{yearValidationText}</div>}
-      {!didSubmit && (
-        <button disabled={!allValid} onClick={() => setDidSubmit(true)}>
-          calculate
-        </button>
-      )}
-    </div>
+    </Calculator>
   );
 };
 

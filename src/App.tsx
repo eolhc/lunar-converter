@@ -11,11 +11,10 @@ import usePositioner from './hooks/usePositioner';
 const Wrapper = styled.div`
   font-size: 32px;
   display: flex;
-  flex-direction: column;
   align-items: center;
   font-family: 'Forum';
   height: 100%;
-  justify-content: 100%;
+  justify-content: center;
 `;
 
 const DateWrapper = styled.div<{ left: number; top: number }>`
@@ -25,17 +24,21 @@ const DateWrapper = styled.div<{ left: number; top: number }>`
   position: absolute;
   left: ${props => props.left}px;
   top: ${props => props.top}px;
+  opacity: ${props => (props.left === 0 && props.top === 0 ? 0 : 1)};
 `;
 
 const App: React.FC = () => {
   const dateWrapperRef = useRef<HTMLDivElement>(null);
   const [type, setType] = useState<string | null>(null);
+  const [shouldAnimate, setShouldAnimate] = useState();
 
   const [westernBirthday, setWesternBirthday] = useState<Birthdate | null>(
     null
   );
 
-  const { left, top } = usePositioner(dateWrapperRef, type);
+  const positionDependents = [type, westernBirthday, shouldAnimate];
+
+  const { left, top } = usePositioner(dateWrapperRef, positionDependents);
 
   return (
     <>
@@ -43,13 +46,17 @@ const App: React.FC = () => {
       <Wrapper>
         <Title />
         {!type && <ConversionOptions setType={setType} />}
-        {type === 'cny' && (
+        {type === 'birthday' && (
           <DateWrapper ref={dateWrapperRef} left={left} top={top}>
             <TransitionGroup>
               {westernBirthday ? (
                 <ChineseBirthday westernBirthday={westernBirthday} />
               ) : (
-                <DatePicker onSubmit={setWesternBirthday} />
+                <DatePicker
+                  onSubmit={setWesternBirthday}
+                  shouldAnimate={shouldAnimate}
+                  setShouldAnimate={setShouldAnimate}
+                />
               )}
             </TransitionGroup>
           </DateWrapper>

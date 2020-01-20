@@ -10,12 +10,16 @@ type Props = {
 
 const Month = styled.span`
   font-size: 1em;
-  color: blue;
+  color: black;
 `;
 
 const Day = styled.span`
   font-size: 1em;
   color: black;
+`;
+
+const ChineseBirthdayWrapper = styled.span`
+  font-family: 'Racing Sans One';
 `;
 
 const ChineseBirthday: React.FC<Props> = ({
@@ -27,34 +31,17 @@ const ChineseBirthday: React.FC<Props> = ({
   const { month: lunarMonth, day: lunarDay } = chineseBirthday;
   const { year: convertedYear } = getWesternDate(chineseBirthday);
   return (
-    <span>
-      <CountUp
-        prefix={day.length === 1 ? '0' : ''}
-        start={parseInt(day, 10)}
-        end={lunarDay}
-        duration={8}
-        delay={0}
-      >
+    <ChineseBirthdayWrapper>
+      <CountUp start={day} end={lunarDay} duration={8} delay={0}>
         {({ countUpRef, start }) => <Day ref={countUpRef} />}
-      </CountUp>
-      <CountUp
-        prefix={month.length === 1 ? '0' : ''}
-        start={parseInt(month, 10)}
-        end={lunarMonth}
-        duration={8}
-        delay={0}
-      >
+      </CountUp>{' '}
+      <CountUp start={month} end={lunarMonth} duration={8} delay={0}>
         {({ countUpRef, start }) => <Month ref={countUpRef} />}
-      </CountUp>
-      <CountUp
-        start={parseInt(year, 10)}
-        end={convertedYear}
-        duration={8}
-        delay={0}
-      >
+      </CountUp>{' '}
+      <CountUp start={year} end={convertedYear} duration={8} delay={0}>
         {({ countUpRef, start }) => <Day ref={countUpRef} />}
       </CountUp>
-    </span>
+    </ChineseBirthdayWrapper>
   );
 };
 

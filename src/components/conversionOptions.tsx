@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import usePositioner from '../hooks/usePositioner';
 
 const OptionWrapper = styled.div<{ left: number; top: number }>`
@@ -7,22 +7,27 @@ const OptionWrapper = styled.div<{ left: number; top: number }>`
   left: ${props => props.left}px;
   top: ${props => props.top}px;
   text-align: center;
+  opacity: ${props => (props.left === 0 && props.top === 0 ? 0 : 1)};
 `;
 
-const SneakyButton = styled.button`
+export const invisibleButton = css`
   border: none;
   background-color: transparent;
   display: block;
   font-family: inherit;
-  font-size: inherit;
   margin: 0 auto;
-  margin-bottom: 2px;
 
   &:focus,
   &:hover {
     outline: none;
     font-style: italic;
   }
+`;
+
+const Button = styled.button`
+  font-size: inherit;
+  margin-bottom: 2px;
+  ${invisibleButton}
 `;
 
 const options = [
@@ -52,9 +57,9 @@ const ConversionOptions: React.FC<Props> = ({ setType }) => {
   return (
     <OptionWrapper ref={optionWrapperRef} left={left} top={top}>
       {options.map(o => (
-        <SneakyButton key={o.type} onClick={() => setType(o.type)}>
+        <Button key={o.type} onClick={() => setType(o.type)}>
           {o.label}
-        </SneakyButton>
+        </Button>
       ))}
     </OptionWrapper>
   );

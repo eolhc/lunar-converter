@@ -1,12 +1,8 @@
 const { CalendarChinese } = require('date-chinese');
 
-const getChineseDate = (year: string, month: string, day: string) => {
+const getChineseDate = (year: number, month: number, day: number) => {
   const calendar = new CalendarChinese();
-  const chineseBirthday = calendar.fromGregorian(
-    parseInt(year, 10),
-    parseInt(month, 10),
-    parseInt(day, 10)
-  );
+  const chineseBirthday = calendar.fromGregorian(year, month, day);
   return chineseBirthday;
 };
 

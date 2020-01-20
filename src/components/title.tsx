@@ -12,7 +12,7 @@ const Title: React.FC = ({ children }) => (
     <defs>
       <path d="M25,50a25,25 0 1,0 50,0a25,25 0 1,0 -50,0" id="textcircle" />
     </defs>
-    <text dy="6">
+    <text dy="8">
       <textPath xlinkHref="#textcircle">LUNAR DATE CONVERTER</textPath>
     </text>
     {children}

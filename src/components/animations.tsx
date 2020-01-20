@@ -18,7 +18,7 @@ const Slide = styled.span`
   position: relative;
 
   &.slide-left-enter {
-    left: -60px;
+    left: -10px;
   }
 
   &.slide-left-enter-active {
@@ -27,7 +27,7 @@ const Slide = styled.span`
   }
 
   &.slide-right-enter {
-    left: 60px;
+    left: 10px;
   }
 
   &.slide-right-enter-active {

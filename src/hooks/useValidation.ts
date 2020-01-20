@@ -21,9 +21,7 @@ function useValidation(type: string, value: any) {
 
   useEffect(() => {
     if (!value) return;
-    const updatedText = isValid(type.toLowerCase(), value)
-      ? `${type} is invalid`
-      : '';
+    const updatedText = isValid(type.toLowerCase(), value) ? type : '';
     setValidationText(updatedText);
   }, [value]);
 
