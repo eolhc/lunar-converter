@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 const currentYear = new Date().getFullYear();
 
-const isValid = (type: string, value: string) => {
+const isInvalid = (type: string, value: string) => {
   const num = parseInt(value, 10);
   switch (type) {
     case 'day':
@@ -16,14 +16,26 @@ const isValid = (type: string, value: string) => {
   }
 };
 
-function useValidation(type: string, value: any) {
+function useValidation(birthday: { day: string; month: string; year: string }) {
   const [validationText, setValidationText] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!value) return;
-    const updatedText = isValid(type.toLowerCase(), value) ? type : '';
-    setValidationText(updatedText);
-  }, [value]);
+    if (!birthday) return;
+    const dateTypes = Object.keys(birthday);
+    let invalidTypes: string[] = [];
+    dateTypes.map(d => {
+      // @ts-ignore
+      if (birthday[d] && isInvalid(d, birthday[d])) {
+        invalidTypes.push(d);
+      }
+    });
+    if (invalidTypes.length > 0) {
+      const updatedText = `Invalid ${invalidTypes.join(', ')}`;
+      setValidationText(updatedText);
+    } else {
+      setValidationText(null);
+    }
+  }, [birthday]);
 
   return validationText;
 }

@@ -80,20 +80,13 @@ const DatePicker: React.FC<Props> = ({
   const [month, setMonth] = useState('');
   const [year, setYear] = useState('');
 
-  const dayValidationText = useValidation('Day', day);
-  const monthValidationText = useValidation('Month', month);
-  const yearValidationText = useValidation('Year', year);
+  const validationText = useValidation({
+    day,
+    month,
+    year
+  });
 
-  const invalidContent =
-    dayValidationText || monthValidationText || yearValidationText;
-
-  const allValid =
-    !dayValidationText &&
-    !monthValidationText &&
-    !yearValidationText &&
-    day &&
-    month &&
-    year;
+  const allValid = !!validationText && day && month && year;
 
   const handleChange = (type: string, value: string) => {
     switch (type) {
@@ -114,13 +107,7 @@ const DatePicker: React.FC<Props> = ({
   return (
     <Calculator>
       <div>
-        {invalidContent && (
-          <ValidationText>
-            Invalid {dayValidationText && `${dayValidationText}`}
-            {monthValidationText && ` / ${monthValidationText}`}
-            {yearValidationText && ` / ${yearValidationText} `}
-          </ValidationText>
-        )}
+        {!!validationText && <ValidationText>{validationText}</ValidationText>}
 
         {shouldAnimate ? (
           <CSSTransition
