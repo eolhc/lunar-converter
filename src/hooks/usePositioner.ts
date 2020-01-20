@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getCenter } from '../utils';
+import { getCenter, debounce } from '../utils';
 
 export default function usePositioner(
   elementRef: React.RefObject<HTMLDivElement>,
@@ -9,6 +9,17 @@ export default function usePositioner(
   const [top, setTop] = useState<number>(0);
 
   useEffect(() => {
+    calculatePosition();
+  }, [elementRef, dependent]);
+
+  useEffect(() => {
+    window.addEventListener('resize', debouncedCalculatePosition);
+    return () => {
+      window.removeEventListener('resize', debouncedCalculatePosition);
+    };
+  });
+
+  const calculatePosition = () => {
     if (!elementRef || !elementRef.current) return;
     const optionWrapper = elementRef.current;
     const optionWrapperEl = optionWrapper.getBoundingClientRect();
@@ -16,7 +27,9 @@ export default function usePositioner(
     const { top, left } = getCenter(width, height);
     setLeft(left);
     setTop(top);
-  }, [elementRef, dependent]);
+  };
+
+  const debouncedCalculatePosition = debounce(calculatePosition, 16);
 
   return { left, top };
 }

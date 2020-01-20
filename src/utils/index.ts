@@ -10,3 +10,20 @@ const getCenter = (
 };
 
 export { getCenter };
+
+export function debounce(callback: any, wait?: number, immediate = false) {
+  let timeout: number | null = null;
+
+  return function() {
+    const callNow = immediate && !timeout;
+    // @ts-ignore
+    const next = () => callback.apply(this, arguments);
+
+    timeout && clearTimeout(timeout);
+    timeout = setTimeout(next, wait);
+
+    if (callNow) {
+      next();
+    }
+  };
+}
