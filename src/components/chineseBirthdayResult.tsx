@@ -90,10 +90,7 @@ const ChineseBirthday: React.FC<Props> = ({
           end={lunarMonth}
           duration={4}
           delay={0}
-          onEnd={() => {
-            console.log('end');
-            setDisplayDescription(true);
-          }}
+          onEnd={() => setDisplayDescription(true)}
         >
           {({ countUpRef }) => <Month ref={countUpRef} />}
         </CountUp>
