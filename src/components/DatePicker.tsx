@@ -86,7 +86,7 @@ const DatePicker: React.FC<Props> = ({
     year
   });
 
-  const allValid = !!validationText && day && month && year;
+  const allValid = !validationText && day && month && year;
 
   const handleChange = (type: string, value: string) => {
     switch (type) {

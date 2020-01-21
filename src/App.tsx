@@ -48,7 +48,7 @@ const App: React.FC = () => {
         {!type && <ConversionOptions setType={setType} />}
         {type === 'birthday' && (
           <DateWrapper ref={dateWrapperRef} left={left} top={top}>
-            <TransitionGroup>
+            <TransitionGroup style={{ textAlign: 'center' }}>
               {westernBirthday ? (
                 <ChineseBirthday westernBirthday={westernBirthday} />
               ) : (
