@@ -1,7 +1,8 @@
 import React, { useRef } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import usePositioner from '../hooks/usePositioner';
 import { CONVERSION_OPTIONS } from '../config';
+import { invisibleButton } from './styles';
 
 const OptionWrapper = styled.div<{ left: number; top: number }>`
   position: absolute;
@@ -11,24 +12,10 @@ const OptionWrapper = styled.div<{ left: number; top: number }>`
   opacity: ${props => (props.left === 0 && props.top === 0 ? 0 : 1)};
 `;
 
-export const invisibleButton = css`
-  border: none;
-  background-color: transparent;
-  display: block;
-  font-family: inherit;
-  margin: 0 auto;
-
-  &:focus,
-  &:hover {
-    outline: none;
-    font-style: italic;
-  }
-`;
-
 const Button = styled.button`
   font-size: inherit;
   margin-bottom: 2px;
-  ${invisibleButton}
+  ${invisibleButton};
 `;
 
 type Props = {

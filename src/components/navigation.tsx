@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { invisibleButton } from './conversionOptions';
+import { invisibleButton } from './styles';
 
 const NavigationWrapper = styled.button`
   ${invisibleButton}

@@ -5,6 +5,7 @@ import ChineseBirthdayConverter from './components/ChineseBirthdayConverter';
 import Title from './components/title';
 import ConversionOptions from './components/conversionOptions';
 import Navigation from './components/navigation';
+import WesternDateConverter from './components/westernDateConverter';
 
 const Wrapper = styled.div`
   font-size: 32px;
@@ -28,8 +29,10 @@ const App: React.FC = () => {
         ) : (
           <ConversionOptions setType={setType} />
         )}
-        {type === 'birthday' && (
+        {type === 'birthday' ? (
           <ChineseBirthdayConverter conversionType={type} />
+        ) : (
+          <WesternDateConverter conversionType={type} />
         )}
       </Wrapper>
     </>
