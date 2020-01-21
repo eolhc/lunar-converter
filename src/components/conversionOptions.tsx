@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import styled, { css } from 'styled-components';
 import usePositioner from '../hooks/usePositioner';
+import { CONVERSION_OPTIONS } from '../config';
 
 const OptionWrapper = styled.div<{ left: number; top: number }>`
   position: absolute;
@@ -30,21 +31,6 @@ const Button = styled.button`
   ${invisibleButton}
 `;
 
-const options = [
-  {
-    label: 'Chinese New Year',
-    type: 'cny'
-  },
-  {
-    label: 'Your Lunar Birthday',
-    type: 'birthday'
-  },
-  {
-    label: 'Qing Ming',
-    type: 'qingMing'
-  }
-];
-
 type Props = {
   setType: (type: string) => void;
 };
@@ -56,7 +42,7 @@ const ConversionOptions: React.FC<Props> = ({ setType }) => {
 
   return (
     <OptionWrapper ref={optionWrapperRef} left={left} top={top}>
-      {options.map(o => (
+      {CONVERSION_OPTIONS.map(o => (
         <Button key={o.type} onClick={() => setType(o.type)}>
           {o.label}
         </Button>

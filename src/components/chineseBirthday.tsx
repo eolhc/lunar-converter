@@ -6,23 +6,7 @@ import {
   getChineseDate,
   getCurrentYearConversion
 } from '../utils/calendarHelper';
-
-const DESCRIPTION_WIDTH = 320;
-
-const months = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December'
-];
+import { MONTHS, DESCRIPTION_WIDTH } from '../config';
 
 type Props = {
   westernBirthday: Birthdate;
@@ -67,8 +51,8 @@ const ChineseBirthdayWrapper = styled.span`
 const ChineseBirthday: React.FC<Props> = ({
   westernBirthday: { year, month, day }
 }) => {
-  const chineseBirthday = getChineseDate(year, month, day);
   const dateCounterRef = useRef<HTMLDivElement>(null);
+  const chineseBirthday = getChineseDate(year, month, day);
 
   const [displayDescription, setDisplayDescription] = useState(false);
   const [leftAdjustment, setLeftAdjustment] = useState(0);
@@ -123,7 +107,7 @@ const ChineseBirthday: React.FC<Props> = ({
         YEAR: {lunarYear} | CYCLE: {cycle} | LEAP: {leap ? 'Yes' : 'No'}
         <div>
           This lunar year, your lunar birthday falls on <br />
-          {convertedDay} {months[convertedMonth - 1]} {convertedYear} in the
+          {convertedDay} {MONTHS[convertedMonth - 1]} {convertedYear} in the
           Gregorian calendar
         </div>
       </BirthdayDescription>
