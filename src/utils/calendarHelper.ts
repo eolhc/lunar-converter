@@ -31,9 +31,19 @@ const getChineseNewYear = (year: number) => {
   return date;
 };
 
+const getQingMing = (year: number) => {
+  let cal = new CalendarChinese();
+  let qm = cal.qingming(year);
+  cal.fromJDE(qm);
+  return cal.toDate();
+  // return cal.toGregorian();
+  //> { year: 1985, month: 4, day: 5 }
+};
+
 export {
   getWesternDate,
   getChineseDate,
   getCurrentYearConversion,
-  getChineseNewYear
+  getChineseNewYear,
+  getQingMing
 };

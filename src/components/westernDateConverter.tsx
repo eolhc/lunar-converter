@@ -4,7 +4,7 @@ import { CSSTransition } from 'react-transition-group';
 import { DatePickerInput, Instruction, Calculator, Button } from './styles';
 import useValidation from '../hooks/useValidation';
 import { getConversionOptionsLabel } from '../utils';
-import { getChineseNewYear } from '../utils/calendarHelper';
+import { getChineseNewYear, getQingMing } from '../utils/calendarHelper';
 import WesternDateResult from './westernDateResult';
 import { Fade } from './animations';
 
@@ -34,6 +34,10 @@ const WesternDateConverter: React.FC<{
     if (conversionType === 'cny') {
       const cny = getChineseNewYear(parseInt(year, 10));
       setDate(cny);
+    }
+    if (conversionType === 'qingMing') {
+      const qingMing = getQingMing(parseInt(year, 10));
+      setDate(qingMing);
     }
   };
 
