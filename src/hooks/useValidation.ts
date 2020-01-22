@@ -10,22 +10,29 @@ const isInvalid = (type: string, value: string) => {
     case 'month':
       return num < 0 || num > 12 || isNaN(num);
     case 'year':
-      return num > currentYear || isNaN(num);
+      return num < 1000 || num > currentYear || isNaN(num);
+    case 'cny':
+      return num < 1900 || num > 2100 || isNaN(num);
     default:
       return false;
   }
 };
 
-function useValidation(birthday: { day: string; month: string; year: string }) {
+function useValidation(date: {
+  day?: string;
+  month?: string;
+  year?: string;
+  cny?: string;
+}) {
   const [validationText, setValidationText] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!birthday) return;
-    const dateTypes = Object.keys(birthday);
+    if (!date) return;
+    const dateTypes = Object.keys(date);
     let invalidTypes: string[] = [];
     dateTypes.map(d => {
       // @ts-ignore
-      if (birthday[d] && isInvalid(d, birthday[d])) {
+      if (date[d] && isInvalid(d, date[d])) {
         invalidTypes.push(d);
       }
     });
@@ -35,7 +42,7 @@ function useValidation(birthday: { day: string; month: string; year: string }) {
     } else {
       setValidationText(null);
     }
-  }, [birthday]);
+  }, [date]);
 
   return validationText;
 }

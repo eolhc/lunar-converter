@@ -23,4 +23,17 @@ const getCurrentYearConversion = (birthday: any) => {
   return currentYearWesternBirthday;
 };
 
-export { getWesternDate, getChineseDate, getCurrentYearConversion };
+const getChineseNewYear = (year: number) => {
+  let cal = new CalendarChinese();
+  let newYear = cal.newYear(year);
+  const julian = require('astronomia').julian;
+  let date = new julian.CalendarGregorian().fromJDE(newYear).toDate();
+  return date;
+};
+
+export {
+  getWesternDate,
+  getChineseDate,
+  getCurrentYearConversion,
+  getChineseNewYear
+};

@@ -3,14 +3,14 @@ import { getCenter, debounce } from '../utils';
 
 export default function usePositioner(
   elementRef: React.RefObject<HTMLDivElement>,
-  dependent: any[] = []
+  updateValue?: number
 ): { top: number; left: number } {
   const [left, setLeft] = useState<number>(0);
   const [top, setTop] = useState<number>(0);
 
   useEffect(() => {
     calculatePosition();
-  }, [elementRef, ...dependent]);
+  }, [elementRef, updateValue]);
 
   useEffect(() => {
     window.addEventListener('resize', debouncedCalculatePosition);

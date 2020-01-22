@@ -7,6 +7,7 @@ import {
   getCurrentYearConversion
 } from '../utils/calendarHelper';
 import { MONTHS, DESCRIPTION_WIDTH } from '../config';
+import { ResultWrapper, ResultText } from './styles';
 
 type Props = {
   westernBirthday: Birthdate;
@@ -27,12 +28,6 @@ const BirthdayDescription = styled.div<{
   transform: opacity 3s linear;
 `;
 
-const Suffix = styled.span`
-  font-size: 14px;
-  font-family: 'Forum', sans-serif;
-  margin: 0 8px 0 4px;
-`;
-
 const Month = styled.span`
   font-size: 1em;
   color: black;
@@ -41,11 +36,6 @@ const Month = styled.span`
 const Day = styled.span`
   font-size: 1em;
   color: black;
-`;
-
-const ChineseBirthdayWrapper = styled.span`
-  font-family: 'Racing Sans One';
-  text-align: center;
 `;
 
 const ChineseBirthday: React.FC<Props> = ({
@@ -79,12 +69,12 @@ const ChineseBirthday: React.FC<Props> = ({
     day: convertedDay
   } = getCurrentYearConversion(chineseBirthday);
   return (
-    <ChineseBirthdayWrapper>
+    <ResultWrapper>
       <div ref={dateCounterRef}>
         <CountUp start={day} end={lunarDay} duration={4} delay={0}>
           {({ countUpRef }) => <Day ref={countUpRef} />}
         </CountUp>
-        <Suffix>Day</Suffix>
+        <ResultText>Day</ResultText>
         <CountUp
           start={month}
           end={lunarMonth}
@@ -94,7 +84,7 @@ const ChineseBirthday: React.FC<Props> = ({
         >
           {({ countUpRef }) => <Month ref={countUpRef} />}
         </CountUp>
-        <Suffix>Month</Suffix>
+        <ResultText>Month</ResultText>
       </div>
 
       <BirthdayDescription
@@ -108,7 +98,7 @@ const ChineseBirthday: React.FC<Props> = ({
           Gregorian calendar
         </div>
       </BirthdayDescription>
-    </ChineseBirthdayWrapper>
+    </ResultWrapper>
   );
 };
 

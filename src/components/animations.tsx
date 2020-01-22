@@ -3,6 +3,17 @@ import styled from 'styled-components';
 const Fade = styled.span`
   transition: opacity 0.2s linear;
 
+  // enter to
+  &.fade-enter {
+    opacity: 0;
+  }
+
+  // enter from
+  &.fade-enter-active {
+    opacity: 1;
+    transition: opacity 0.5s;
+  }
+
   // exit from
   &.fade-exit {
     opacity: 1;
@@ -11,6 +22,7 @@ const Fade = styled.span`
   // exit to
   &.fade-exit-active {
     opacity: 0;
+    transition: opacity 0.5s;
   }
 `;
 

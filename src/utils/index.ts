@@ -1,3 +1,5 @@
+import { CONVERSION_OPTIONS } from '../config';
+
 const getCenter = (
   width: number,
   height: number
@@ -9,9 +11,7 @@ const getCenter = (
   return { top, left };
 };
 
-export { getCenter };
-
-export function debounce(callback: any, wait?: number, immediate = false) {
+function debounce(callback: any, wait?: number, immediate = false) {
   let timeout: number | null = null;
 
   return function() {
@@ -27,3 +27,10 @@ export function debounce(callback: any, wait?: number, immediate = false) {
     }
   };
 }
+
+const getConversionOptionsLabel = (type: string) => {
+  const option = CONVERSION_OPTIONS.find(co => co.type === type);
+  return option && option.label;
+};
+
+export { getCenter, debounce, getConversionOptionsLabel };

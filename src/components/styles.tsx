@@ -4,7 +4,7 @@ export const DatePickerInput = styled.input<{ shortInput: boolean }>`
   background-color: transparent;
   border: none;
   font-size: 1em;
-  width: ${props => (props.shortInput ? '1.8em' : '2.5em')};
+  width: ${props => (props.shortInput ? '1.8em' : '2.8em')};
   /* padding: 0 8px; */
   text-align: center;
   border: none;
@@ -32,4 +32,48 @@ export const invisibleButton = css`
     outline: none;
     font-style: italic;
   }
+`;
+
+export const instructionText = css`
+  text-transform: uppercase;
+  font-size: 0.5em;
+`;
+
+export const Instruction = styled.div<{ isValid: boolean }>`
+  width: 160px;
+  margin: 0 auto;
+  color: ${props => (props.isValid ? '#fabc3c' : 'black')};
+  ${instructionText};
+  text-align: center;
+`;
+
+export const Calculator = styled.div`
+  text-align: center;
+`;
+
+export const Button = styled.button`
+  ${instructionText}
+  ${invisibleButton}
+  border-bottom: 1px solid black;
+  padding-bottom: 2px;
+`;
+
+export const ValidationText = styled.div`
+  position: absolute;
+  top: -28px;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #fabc3c;
+`;
+
+export const ResultWrapper = styled.span`
+  font-family: 'Racing Sans One';
+  text-align: center;
+`;
+
+export const ResultText = styled.span`
+  font-size: 14px;
+  font-family: 'Forum', sans-serif;
+  margin: 0 8px 0 4px;
+  text-transform: uppercase;
 `;

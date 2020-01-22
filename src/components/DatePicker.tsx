@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { CSSTransition } from 'react-transition-group';
 import SlashSeparator from './slashSeparator';
 import useValidation from '../hooks/useValidation';
 import { Slide } from './animations';
-import { DatePickerInput, invisibleButton } from './styles';
+import { DatePickerInput, Instruction, Button, ValidationText } from './styles';
 
 export type Birthdate = {
   day: number;
@@ -24,32 +24,6 @@ const DateWrapper = styled.span`
 
 const Calculator = styled.div`
   text-align: center;
-`;
-
-const instructionText = css`
-  text-transform: uppercase;
-  font-size: 0.5em;
-`;
-
-const Instruction = styled.div`
-  width: 160px;
-  margin: 0 auto;
-  ${instructionText}
-`;
-
-const Button = styled.button`
-  ${instructionText}
-  ${invisibleButton}
-  border-bottom: 1px solid black;
-  padding-bottom: 2px;
-`;
-
-const ValidationText = styled.div`
-  position: absolute;
-  top: -28px;
-  font-size: 14px;
-  text-transform: uppercase;
-  color: #fabc3c;
 `;
 
 const DatePicker: React.FC<Props> = ({
@@ -141,7 +115,7 @@ const DatePicker: React.FC<Props> = ({
         )}
       </div>
       {!shouldAnimate && !allValid && (
-        <Instruction>ENTER YOUR BIRTHDAY</Instruction>
+        <Instruction isValid>ENTER YOUR BIRTHDAY</Instruction>
       )}
       {!shouldAnimate && allValid && (
         <Button onClick={() => setShouldAnimate(true)}>
