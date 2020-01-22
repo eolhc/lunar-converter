@@ -15,6 +15,7 @@ const OptionWrapper = styled.div<{ left: number; top: number }>`
 const Button = styled.button`
   font-size: inherit;
   margin-bottom: 2px;
+  margin: 0 auto;
   ${invisibleButton};
 `;
 

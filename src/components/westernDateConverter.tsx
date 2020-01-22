@@ -28,7 +28,7 @@ const WesternDateConverter: React.FC<{
     setUpdateValue(Math.random());
   }, [year, date]);
 
-  const allValid = !validationText && year;
+  const allValid = !validationText && !!year;
   const label = getConversionOptionsLabel(conversionType);
 
   const submitYear = () => {
@@ -60,7 +60,7 @@ const WesternDateConverter: React.FC<{
           </InputWrapper>
         </div>
         {!allValid ? (
-          <Instruction isValid={!!validationText}>
+          <Instruction isValid={!validationText}>
             ENTER A {validationText && 'VALID '}YEAR
           </Instruction>
         ) : (

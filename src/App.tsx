@@ -7,6 +7,7 @@ import Title from './components/title';
 import ConversionOptions from './components/conversionOptions';
 import Navigation from './components/navigation';
 import WesternDateConverter from './components/westernDateConverter';
+import { getConversionOptionsLabel } from './utils';
 
 const Wrapper = styled.div`
   font-size: 32px;
@@ -44,7 +45,10 @@ const App: React.FC = () => {
       <Wrapper>
         <Title />
         {type ? (
-          <Navigation onBack={() => setType(null)} />
+          <Navigation
+            onBack={() => setType(null)}
+            title={type && getConversionOptionsLabel(type)}
+          />
         ) : (
           <ConversionOptions setType={setType} />
         )}

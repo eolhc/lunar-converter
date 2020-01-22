@@ -5,7 +5,6 @@ export const invisibleButton = css`
   background-color: transparent;
   display: block;
   font-family: inherit;
-  margin: 0 auto;
 
   &:focus,
   &:hover {
@@ -22,7 +21,7 @@ export const instructionText = css`
 export const Instruction = styled.div<{ isValid: boolean }>`
   width: 160px;
   margin: 0 auto;
-  color: ${props => (props.isValid ? '#fabc3c' : 'black')};
+  color: ${props => (props.isValid ? 'black' : '#fabc3c')};
   ${instructionText};
   text-align: center;
 `;
