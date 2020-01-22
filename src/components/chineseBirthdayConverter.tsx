@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TransitionGroup } from 'react-transition-group';
 import ChineseBirthdayResult from './chineseBirthdayResult';
-import DatePicker, { Birthdate } from './datePicker';
+import BirthdayPicker, { Birthdate } from './birthdayPicker';
 
 const ChineseBirthdayConverter: React.FC<{
   setUpdateValue: (updateValue: number) => void;
@@ -20,7 +20,7 @@ const ChineseBirthdayConverter: React.FC<{
       {westernBirthday ? (
         <ChineseBirthdayResult westernBirthday={westernBirthday} />
       ) : (
-        <DatePicker
+        <BirthdayPicker
           onSubmit={setWesternBirthday}
           shouldAnimate={shouldAnimate}
           setShouldAnimate={setShouldAnimate}

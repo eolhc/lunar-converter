@@ -4,7 +4,8 @@ import { CSSTransition } from 'react-transition-group';
 import SlashSeparator from './slashSeparator';
 import useValidation from '../hooks/useValidation';
 import { Slide } from './animations';
-import { DatePickerInput, Instruction, Button, ValidationText } from './styles';
+import { Instruction, Button, ValidationText } from './styles';
+import { DayPicker, MonthPicker, YearPicker } from './pickers';
 
 export type Birthdate = {
   day: number;
@@ -26,7 +27,7 @@ const Calculator = styled.div`
   text-align: center;
 `;
 
-const DatePicker: React.FC<Props> = ({
+const BirthdayPicker: React.FC<Props> = ({
   onSubmit,
   setShouldAnimate,
   shouldAnimate
@@ -91,25 +92,19 @@ const DatePicker: React.FC<Props> = ({
           </>
         ) : (
           <>
-            <DatePickerInput
-              shortInput
-              onChange={e => handleChange('day', e.currentTarget.value)}
-              value={day}
-              placeholder="DD"
+            <DayPicker
+              day={day}
+              onChange={(d: string) => handleChange('day', d)}
             />
             <SlashSeparator />
-            <DatePickerInput
-              shortInput
-              onChange={e => handleChange('month', e.currentTarget.value)}
-              value={month}
-              placeholder="MM"
+            <MonthPicker
+              month={month}
+              onChange={(m: string) => handleChange('month', m)}
             />
             <SlashSeparator />
-            <DatePickerInput
-              onChange={e => handleChange('year', e.currentTarget.value)}
-              value={year}
-              placeholder="YYYY"
-              shortInput={false}
+            <YearPicker
+              year={year}
+              onChange={(y: string) => handleChange('year', y)}
             />
           </>
         )}
@@ -126,4 +121,4 @@ const DatePicker: React.FC<Props> = ({
   );
 };
 
-export default DatePicker;
+export default BirthdayPicker;

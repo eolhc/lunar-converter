@@ -36,8 +36,6 @@ const getQingMing = (year: number) => {
   let qm = cal.qingming(year);
   cal.fromJDE(qm);
   return cal.toDate();
-  // return cal.toGregorian();
-  //> { year: 1985, month: 4, day: 5 }
 };
 
 export {

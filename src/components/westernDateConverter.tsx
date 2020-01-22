@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { CSSTransition } from 'react-transition-group';
-import { DatePickerInput, Instruction, Calculator, Button } from './styles';
+import { Instruction, Calculator, Button } from './styles';
 import useValidation from '../hooks/useValidation';
 import { getConversionOptionsLabel } from '../utils';
 import { getChineseNewYear, getQingMing } from '../utils/calendarHelper';
 import WesternDateResult from './westernDateResult';
+import { YearPicker } from './pickers';
 import { Fade } from './animations';
 
 const InputWrapper = styled.div`
@@ -52,11 +53,9 @@ const WesternDateConverter: React.FC<{
       <Calculator>
         <div>
           <InputWrapper>
-            <DatePickerInput
-              onChange={e => setYear(e.currentTarget.value.slice(0, 4))}
-              value={year}
-              placeholder="YYYY"
-              shortInput={false}
+            <YearPicker
+              year={year}
+              onChange={(y: string) => setYear(y.slice(0, 4))}
             />
           </InputWrapper>
         </div>

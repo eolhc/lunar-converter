@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import CountUp from 'react-countup';
-import { Birthdate } from './datePicker';
+import { Birthdate } from './birthdayPicker';
 import {
   getChineseDate,
   getCurrentYearConversion
