@@ -1,7 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import GlobalStyles from './globalStyles';
-import usePositioner from './hooks/usePositioner';
 import ChineseBirthdayConverter from './components/ChineseBirthdayConverter';
 import Title from './components/title';
 import ConversionOptions from './components/conversionOptions';
@@ -10,34 +9,28 @@ import WesternDateConverter from './components/westernDateConverter';
 import { getConversionOptionsLabel } from './utils';
 
 const Wrapper = styled.div`
-  font-size: 32px;
+  font-size: 16px;
   display: flex;
   align-items: center;
   font-family: 'Forum';
   height: 100%;
   justify-content: center;
+
+  @media (min-width: 480px) {
+    font-size: 24px;
+  }
 `;
 
-const Converter = styled.div<{ left: number; top: number }>`
+const Converter = styled.div`
   height: 1em;
   display: flex;
   align-items: center;
   position: absolute;
-  left: ${props => props.left}px;
-  top: ${props => props.top}px;
-  opacity: ${props => (props.left === 0 && props.top === 0 ? 0 : 1)};
 `;
 
 const App: React.FC = () => {
   const converterRef = useRef<HTMLDivElement>(null);
   const [type, setType] = useState<string | null>(null);
-  const [updateValue, setUpdateValue] = useState<number>(0);
-
-  const { left, top } = usePositioner(converterRef, updateValue);
-
-  useEffect(() => {
-    setUpdateValue(Math.random());
-  }, [type]);
 
   return (
     <>
@@ -52,15 +45,10 @@ const App: React.FC = () => {
         ) : (
           <ConversionOptions setType={setType} />
         )}
-        <Converter ref={converterRef} left={left} top={top}>
-          {type === 'birthday' && (
-            <ChineseBirthdayConverter setUpdateValue={setUpdateValue} />
-          )}
+        <Converter ref={converterRef}>
+          {type === 'birthday' && <ChineseBirthdayConverter />}
           {(type === 'cny' || type === 'qingMing') && (
-            <WesternDateConverter
-              conversionType={type}
-              setUpdateValue={setUpdateValue}
-            />
+            <WesternDateConverter conversionType={type} />
           )}
         </Converter>
       </Wrapper>

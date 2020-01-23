@@ -6,7 +6,7 @@ import {
   getChineseDate,
   getCurrentYearConversion
 } from '../utils/calendarHelper';
-import { MONTHS, DESCRIPTION_WIDTH } from '../config';
+import { MONTHS } from '../config';
 import { ResultWrapper, ResultText } from './styles';
 
 type Props = {
@@ -17,15 +17,21 @@ const BirthdayDescription = styled.div<{
   left: number;
   shouldDisplay: boolean;
 }>`
-  font-size: 14px;
+  font-size: 11px;
   font-family: 'Forum', sans-serif;
   text-align: center;
   text-transform: uppercase;
-  width: ${DESCRIPTION_WIDTH}px;
+  width: 200px;
   position: absolute;
-  left: -${props => props.left}px;
+  left: -${props => 100 - props.left}px;
   opacity: ${props => (props.shouldDisplay ? 1 : 0)};
   transform: opacity 3s linear;
+
+  @media (min-width: 480px) {
+    width: 320px;
+    left: -${props => 160 - props.left}px;
+    font-size: 14px;
+  }
 `;
 
 const Month = styled.span`
@@ -52,7 +58,7 @@ const ChineseBirthday: React.FC<Props> = ({
     const dateCounter = dateCounterRef.current;
     const dateCounterBounds = dateCounter.getBoundingClientRect();
     const { width } = dateCounterBounds;
-    setLeftAdjustment(DESCRIPTION_WIDTH / 2 - width / 2);
+    setLeftAdjustment(width / 2);
   }, [dateCounterRef]);
 
   const {

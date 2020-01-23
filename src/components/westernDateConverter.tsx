@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { CSSTransition } from 'react-transition-group';
 import { Instruction, Calculator, Button } from './styles';
@@ -15,18 +15,13 @@ const InputWrapper = styled.div`
 
 const WesternDateConverter: React.FC<{
   conversionType: string;
-  setUpdateValue: (updateValue: number) => void;
-}> = ({ conversionType, setUpdateValue }) => {
+}> = ({ conversionType }) => {
   const [year, setYear] = useState('');
   const [date, setDate] = useState<Date>();
 
   const validationText = useValidation({
     cny: year
   });
-
-  useEffect(() => {
-    setUpdateValue(Math.random());
-  }, [year, date]);
 
   const allValid = !validationText && !!year;
   const label = getConversionOptionsLabel(conversionType);
@@ -60,8 +55,8 @@ const WesternDateConverter: React.FC<{
           </InputWrapper>
         </div>
         {!allValid ? (
-          <Instruction isValid={!validationText}>
-            ENTER A {validationText && 'VALID '}YEAR
+          <Instruction isValid={!allValid}>
+            ENTER A {validationText && year.length === 4 && 'VALID '}YEAR
           </Instruction>
         ) : (
           <Button onClick={submitYear}>Click for {label}</Button>

@@ -15,11 +15,11 @@ export const invisibleButton = css`
 
 export const instructionText = css`
   text-transform: uppercase;
-  font-size: 0.5em;
+  font-size: 0.8em;
 `;
 
 export const Instruction = styled.div<{ isValid: boolean }>`
-  width: 160px;
+  width: 200px;
   margin: 0 auto;
   color: ${props => (props.isValid ? 'black' : '#fabc3c')};
   ${instructionText};
@@ -35,6 +35,7 @@ export const Button = styled.button`
   ${invisibleButton}
   border-bottom: 1px solid black;
   padding-bottom: 2px;
+  margin: 0 4px;
 `;
 
 export const ValidationText = styled.div`

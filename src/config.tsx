@@ -18,8 +18,6 @@ export const CONVERSION_OPTIONS: ConversionOption[] = [
   }
 ];
 
-export const DESCRIPTION_WIDTH = 320;
-
 export const MONTHS: string[] = [
   'January',
   'February',
