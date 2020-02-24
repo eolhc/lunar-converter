@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import GlobalStyles from './globalStyles';
-import ChineseBirthdayConverter from './components/ChineseBirthdayConverter';
+import ChineseBirthdayConverter from './components/chineseBirthdayConverter';
 import Title from './components/title';
 import ConversionOptions from './components/conversionOptions';
 import Navigation from './components/navigation';
