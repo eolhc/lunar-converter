@@ -5,7 +5,7 @@ export const DatePickerInput = styled.input<{ shortInput: boolean }>`
   background-color: transparent;
   border: none;
   font-size: 1em;
-  width: ${props => (props.shortInput ? '1.8em' : '2.8em')};
+  width: ${props => (props.shortInput ? '1.8em' : '3em')};
   /* padding: 0 8px; */
   text-align: center;
   border: none;

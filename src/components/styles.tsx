@@ -40,7 +40,7 @@ export const Button = styled.button`
 
 export const ValidationText = styled.div`
   position: absolute;
-  top: -28px;
+  top: -42px;
   font-size: 14px;
   text-transform: uppercase;
   color: #fabc3c;

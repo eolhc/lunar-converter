@@ -6,7 +6,7 @@ const SMALL_DEVICE_DY = '14';
 const BIGGER_DEVICE_DY = '8';
 
 const CircleText = styled.svg`
-  font-size: 14.5px;
+  font-size: 12.5px;
   height: 100%;
 `;
 
