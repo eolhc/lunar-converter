@@ -3,7 +3,11 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'production',
-
+  entry: "./src/index.tsx",
+  output: {
+    filename: 'index.js',
+    path: path.resolve(__dirname, 'dist'),
+  },
   devtool: 'source-map',
 
   resolve: {
